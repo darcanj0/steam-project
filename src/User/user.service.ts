@@ -1,6 +1,11 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -11,9 +16,35 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
+  async findById(id: string): Promise<User> {
+    const record = await this.prisma.user.findUnique({ where: { id } });
+    if (!record) {
+      throw new NotFoundException(`Id ${id} register was not found.`);
+    }
+    return record;
+  }
+
+  findOne(id: string): Promise<User> {
+    return this.findById(id);
+  }
+
   create(dto: CreateUserDto): Promise<User> {
     const data: User = { ...dto };
     return this.prisma.user.create({ data }).catch(this.handleError);
+  }
+
+  update(id: string, dto: UpdateUserDto): Promise<User> {
+    const data: Partial<User> = { ...dto };
+    return this.prisma.user.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async delete(id: string) {
+    await this.prisma.user.delete({
+      where: { id },
+    });
   }
 
   handleError(error: Error): undefined {
