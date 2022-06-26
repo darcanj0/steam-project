@@ -24,7 +24,17 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. This project has educational purposes and it consist in an API for a Steam/Xbox-live/Psn clone.
+In this systems, users have profiles, in which they can display the games registered in the Database, sorting by genre. Furthermore, each profile can create a custom list of favorite games...
+For more information...
+
+[Check Swagger docs if you are running locally](http://localhost:3001/api)
+
+## Cloning
+
+```bash
+$ git clone https://github.com/darcanj0/steam-project.git
+```
 
 ## Installation
 
