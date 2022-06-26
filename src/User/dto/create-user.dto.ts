@@ -14,7 +14,7 @@ export class CreateUserDto {
     description: 'Name of the user',
     example: 'Daniel',
   })
-  userName: string;
+  user_name: string;
 
   @IsEmail()
   @ApiProperty({
@@ -38,7 +38,7 @@ export class CreateUserDto {
     description: 'True if the user is an admin; False if not',
     example: true,
   })
-  isAdmin: boolean;
+  is_admin: boolean;
 
   //ex: 12345678910
   @IsString()
