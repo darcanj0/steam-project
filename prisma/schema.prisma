@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id String @id @default(uuid())
-  user_name String @unique
+  user_name String
   email String @unique
   password String
   is_admin Boolean
