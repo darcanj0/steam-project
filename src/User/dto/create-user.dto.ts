@@ -15,7 +15,7 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
-  @Matches('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
   @IsNotEmpty()
   password: string;
 
@@ -24,7 +24,7 @@ export class CreateUserDto {
   isAdmin: boolean;
 
   @IsString()
-  @Matches('/^d{3}.d{3}.d{3}-d{2}$/')
+  @Matches(/(\d{3})(\d{3})(\d{3})(\d{2})/)
   @IsNotEmpty()
   cpf: string;
 }
