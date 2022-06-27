@@ -33,7 +33,8 @@ export class UserService {
     return this.prisma.user.create({ data }).catch(this.handleError);
   }
 
-  update(id: string, dto: UpdateUserDto): Promise<User> {
+  async update(id: string, dto: UpdateUserDto): Promise<User> {
+    await this.findById(id);
     const data: Partial<User> = { ...dto };
     return this.prisma.user.update({
       where: { id },
