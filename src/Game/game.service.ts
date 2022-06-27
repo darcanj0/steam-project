@@ -36,7 +36,7 @@ export class GameService {
   async update(id: string, dto: UpdateGameDto) {
     const data: Partial<Game> = { ...dto };
     await this.findById(id);
-    await this.prisma.game
+    return this.prisma.game
       .update({ where: { id }, data })
       .catch(this.handleError);
   }
