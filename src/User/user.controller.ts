@@ -24,7 +24,7 @@ export class UserController {
   @ApiOperation({
     summary: 'List all users',
   })
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
