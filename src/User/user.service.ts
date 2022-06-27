@@ -36,10 +36,12 @@ export class UserService {
   async update(id: string, dto: UpdateUserDto): Promise<User> {
     await this.findById(id);
     const data: Partial<User> = { ...dto };
-    return this.prisma.user.update({
-      where: { id },
-      data,
-    });
+    return this.prisma.user
+      .update({
+        where: { id },
+        data,
+      })
+      .catch(this.handleError);
   }
 
   async delete(id: string) {
