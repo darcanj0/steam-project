@@ -4,39 +4,39 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { CreateGenreDto } from './dto/create-genre.dto';
+import { UpdateGenreDto } from './dto/update-genre.dto';
+import { Genre } from './entities/genre.entity';
 
 @Injectable()
-export class UserService {
+export class GenreService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
+  findAll(): Promise<Genre[]> {
+    return this.prisma.genre.findMany();
   }
 
-  async findById(id: string): Promise<User> {
-    const record = await this.prisma.user.findUnique({ where: { id } });
+  async findById(id: number): Promise<Genre> {
+    const record = await this.prisma.genre.findUnique({ where: { id } });
     if (!record) {
       throw new NotFoundException(`Id ${id} register was not found.`);
     }
     return record;
   }
 
-  findOne(id: string): Promise<User> {
+  findOne(id: number): Promise<Genre> {
     return this.findById(id);
   }
 
-  create(dto: CreateUserDto): Promise<User> {
-    const data: User = { ...dto };
-    return this.prisma.user.create({ data }).catch(this.handleError);
+  create(createGenreDto: CreateGenreDto): Promise<Genre> {
+    const data = { ...createGenreDto };
+    return this.prisma.genre.create({ data }).catch(this.handleError);
   }
 
-  async update(id: string, dto: UpdateUserDto): Promise<User> {
+  async update(id: number, updateGenreDto: UpdateGenreDto): Promise<Genre> {
     await this.findById(id);
-    const data: Partial<User> = { ...dto };
-    return this.prisma.user
+    const data: Partial<Genre> = { ...updateGenreDto };
+    return this.prisma.genre
       .update({
         where: { id },
         data,
@@ -44,9 +44,9 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  async remove(id: string) {
+  async remove(id: number) {
     await this.findById(id);
-    await this.prisma.user.delete({
+    await this.prisma.genre.delete({
       where: { id },
     });
   }
