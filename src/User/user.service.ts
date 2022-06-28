@@ -30,16 +30,15 @@ export class UserService {
   }
 
   create(dto: CreateUserDto): Promise<User> {
+    delete dto.confirm_password;
     const data: User = { ...dto, password: bcrypt.hashSync(dto.password, 8) };
     return this.prisma.user.create({ data }).catch(this.handleError);
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
+    delete dto.confirm_password;
     await this.findById(id);
-    const data: Partial<User> = {
-      ...dto,
-      password: bcrypt.hashSync(dto.password, 8),
-    };
+    const data: Partial<User> = { ...dto };
     return this.prisma.user
       .update({
         where: { id },
