@@ -26,13 +26,20 @@ export class CreateUserDto {
   @IsString()
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {
     message:
-      'Your password is too weak. Use one with 8 characters at least, lower case, upper case, number and a special character',
+      'Your password is too weak. Use 8 characters at least, 1 lower case, 1 upper case, a number and a special character',
   })
   @ApiProperty({
-    description: `at least 1 lowercase alphabetical\nat least 1 uppercase alphabetical\nat least 1 numeric\none special character`,
+    description: `At least 1 lowercase alphabetical\nat least 1 uppercase alphabetical\nat least 1 numeric\none special character`,
     example: 'Abcdef@1',
   })
   password: string;
+
+  @IsString()
+  @ApiProperty({
+    description: `Check if password is written correctly.`,
+    example: 'Abcdef@1',
+  })
+  confirm_password: string;
 
   @IsBoolean()
   @IsNotEmpty()
