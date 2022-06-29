@@ -5,6 +5,7 @@ import {
   IsNumber,
   IsPositive,
   IsString,
+  IsUrl,
 } from 'class-validator';
 
 export class CreateGameDto {
@@ -49,16 +50,14 @@ export class CreateGameDto {
   })
   score: number;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsUrl()
   @ApiProperty({
     description: 'A game trailer url on youtube',
     example: 'https://www.youtube.com/watch?v=HqQMh_tij0c',
   })
   trailer_url: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsUrl()
   @ApiProperty({
     description: 'A gameplay url on youtbe',
     example: 'https://www.youtube.com/watch?v=Wf5tpMhziII',

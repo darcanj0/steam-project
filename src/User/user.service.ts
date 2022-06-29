@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
@@ -7,6 +8,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -29,12 +31,29 @@ export class UserService {
   }
 
   create(dto: CreateUserDto): Promise<User> {
-    const data: User = { ...dto };
+    if (dto.password != dto.confirm_password) {
+      throw new BadRequestException('Passwords sent are not equal.');
+    }
+    delete dto.confirm_password;
+    const data: User = { ...dto, password: bcrypt.hashSync(dto.password, 8) };
     return this.prisma.user.create({ data }).catch(this.handleError);
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
     await this.findById(id);
+
+    if (dto.password) {
+      if (dto.password != dto.confirm_password) {
+        throw new BadRequestException('Passwords sent are not equal.');
+      }
+    }
+
+    delete dto.confirm_password;
+
+    if (dto.password) {
+      dto = { ...dto, password: bcrypt.hashSync(dto.password, 8) };
+    }
+    
     const data: Partial<User> = { ...dto };
     return this.prisma.user
       .update({
