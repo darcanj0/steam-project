@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
@@ -30,14 +31,29 @@ export class UserService {
   }
 
   create(dto: CreateUserDto): Promise<User> {
+    if (dto.password != dto.confirm_password) {
+      throw new BadRequestException('Passwords sent are not equal.');
+    }
     delete dto.confirm_password;
     const data: User = { ...dto, password: bcrypt.hashSync(dto.password, 8) };
     return this.prisma.user.create({ data }).catch(this.handleError);
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
-    delete dto.confirm_password;
     await this.findById(id);
+
+    if (dto.password) {
+      if (dto.password != dto.confirm_password) {
+        throw new BadRequestException('Passwords sent are not equal.');
+      }
+    }
+
+    delete dto.confirm_password;
+
+    if (dto.password) {
+      dto = { ...dto, password: bcrypt.hashSync(dto.password, 8) };
+    }
+    
     const data: Partial<User> = { ...dto };
     return this.prisma.user
       .update({
