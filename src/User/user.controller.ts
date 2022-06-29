@@ -58,6 +58,6 @@ export class UserController {
     summary: 'Delete an user by id',
   })
   remove(@Param('id') id: string) {
-    this.userService.remove(id);
+    return this.userService.remove(id);
   }
 }
