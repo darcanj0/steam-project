@@ -43,12 +43,12 @@ export class UserService {
     return this.verifyIdAndReturnUser(id);
   }
 
-  create(dto: CreateUserDto): Promise<User> {
+  async create(dto: CreateUserDto): Promise<User> {
     if (dto.password != dto.confirm_password) {
       throw new BadRequestException('Passwords sent are not equal.');
     }
     delete dto.confirm_password;
-    const data: User = { ...dto, password: bcrypt.hashSync(dto.password, 8) };
+    const data: User = { ...dto, password: await bcrypt.hash(dto.password, 8) };
     return this.prisma.user
       .create({ data, select: this.userSelect })
       .catch(this.handleUniqueConstraintError);
@@ -66,7 +66,7 @@ export class UserService {
     delete dto.confirm_password;
 
     if (dto.password) {
-      dto = { ...dto, password: bcrypt.hashSync(dto.password, 8) };
+      dto = { ...dto, password: await bcrypt.hash(dto.password, 8) };
     }
 
     const data: Partial<User> = { ...dto };
