@@ -28,7 +28,7 @@ export class UserService {
     return this.prisma.user.findMany({ select: this.userSelect });
   }
 
-  async findById(id: string): Promise<User> {
+  async verifyIdAndReturnUser(id: string): Promise<User> {
     const record = await this.prisma.user.findUnique({
       where: { id },
       select: this.userSelect,
@@ -40,7 +40,7 @@ export class UserService {
   }
 
   findOne(id: string): Promise<User> {
-    return this.findById(id);
+    return this.verifyIdAndReturnUser(id);
   }
 
   create(dto: CreateUserDto): Promise<User> {
@@ -51,11 +51,11 @@ export class UserService {
     const data: User = { ...dto, password: bcrypt.hashSync(dto.password, 8) };
     return this.prisma.user
       .create({ data, select: this.userSelect })
-      .catch(this.handleError);
+      .catch(this.handleUniqueConstraintError);
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
-    await this.findById(id);
+    await this.verifyIdAndReturnUser(id);
 
     if (dto.password) {
       if (dto.password != dto.confirm_password) {
@@ -76,15 +76,15 @@ export class UserService {
         data,
         select: this.userSelect,
       })
-      .catch(this.handleError);
+      .catch(this.handleUniqueConstraintError);
   }
 
   async remove(id: string) {
-    await this.findById(id);
+    await this.verifyIdAndReturnUser(id);
     await this.prisma.user.delete({ where: { id } });
   }
 
-  handleError(error: Error): undefined {
+  handleUniqueConstraintError(error: Error): undefined {
     const errorLines = error.message?.split('\n');
     const lastErrorLine = errorLines[errorLines.length - 1]?.trim();
     throw new UnprocessableEntityException(
