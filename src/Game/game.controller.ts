@@ -58,6 +58,6 @@ export class GameController {
     summary: 'Delete a game by id',
   })
   remove(@Param('id') id: string) {
-    this.gameService.remove(id);
+    return this.gameService.remove(id);
   }
 }

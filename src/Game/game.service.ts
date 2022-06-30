@@ -16,7 +16,7 @@ export class GameService {
     return this.prisma.game.findMany();
   }
 
-  async findById(id: string): Promise<Game> {
+  async verifyIdAndReturnGame(id: string): Promise<Game> {
     const record = await this.prisma.game.findUnique({ where: { id } });
     if (!record) {
       throw new NotFoundException(`Id ${id} register was not found.`);
@@ -25,28 +25,28 @@ export class GameService {
   }
 
   findOne(id: string): Promise<Game> {
-    return this.findById(id);
+    return this.verifyIdAndReturnGame(id);
   }
 
   create(dto: CreateGameDto): Promise<Game> {
     const data: Game = { ...dto };
-    return this.prisma.game.create({ data }).catch(this.handleError);
+    return this.prisma.game.create({ data }).catch(this.handleUniqueConstraintError);
   }
 
   async update(id: string, dto: UpdateGameDto) {
     const data: Partial<Game> = { ...dto };
-    await this.findById(id);
+    await this.verifyIdAndReturnGame(id);
     return this.prisma.game
       .update({ where: { id }, data })
-      .catch(this.handleError);
+      .catch(this.handleUniqueConstraintError);
   }
 
   async remove(id: string) {
-    await this.findById(id);
+    await this.verifyIdAndReturnGame(id);
     await this.prisma.game.delete({ where: { id } });
   }
 
-  handleError(error: Error): undefined {
+  handleUniqueConstraintError(error: Error): undefined {
     const errorLines = error.message?.split('\n');
     const lastErrorLine = errorLines[errorLines.length - 1]?.trim();
     throw new UnprocessableEntityException(
