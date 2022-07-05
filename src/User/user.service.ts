@@ -9,6 +9,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcryptjs';
+import { handleUniqueConstraintError } from 'src/utils/handle-error-constraint-unique.utils';
 
 @Injectable()
 export class UserService {
@@ -51,7 +52,7 @@ export class UserService {
     const data: User = { ...dto, password: await bcrypt.hash(dto.password, 8) };
     return this.prisma.user
       .create({ data, select: this.userSelect })
-      .catch(this.handleUniqueConstraintError);
+      .catch(handleUniqueConstraintError);
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
@@ -76,19 +77,11 @@ export class UserService {
         data,
         select: this.userSelect,
       })
-      .catch(this.handleUniqueConstraintError);
+      .catch(handleUniqueConstraintError);
   }
 
   async remove(id: string) {
     await this.verifyIdAndReturnUser(id);
     await this.prisma.user.delete({ where: { id } });
-  }
-
-  handleUniqueConstraintError(error: Error): undefined {
-    const errorLines = error.message?.split('\n');
-    const lastErrorLine = errorLines[errorLines.length - 1]?.trim();
-    throw new UnprocessableEntityException(
-      lastErrorLine || 'An error occurred while executing the operation',
-    );
   }
 }

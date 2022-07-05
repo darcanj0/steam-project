@@ -4,6 +4,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { handleUniqueConstraintError } from 'src/utils/handle-error-constraint-unique.utils';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
 import { Genre } from './entities/genre.entity';
@@ -30,7 +31,7 @@ export class GenreService {
 
   create(createGenreDto: CreateGenreDto): Promise<Genre> {
     const data = { ...createGenreDto };
-    return this.prisma.genre.create({ data }).catch(this.handleUniqueConstraintError);
+    return this.prisma.genre.create({ data }).catch(handleUniqueConstraintError);
   }
 
   async update(id: number, updateGenreDto: UpdateGenreDto): Promise<Genre> {
@@ -41,7 +42,7 @@ export class GenreService {
         where: { id },
         data,
       })
-      .catch(this.handleUniqueConstraintError);
+      .catch(handleUniqueConstraintError);
   }
 
   async remove(id: number) {
@@ -49,13 +50,5 @@ export class GenreService {
     await this.prisma.genre.delete({
       where: { id },
     });
-  }
-
-  handleUniqueConstraintError(error: Error): undefined {
-    const errorLines = error.message?.split('\n');
-    const lastErrorLine = errorLines[errorLines.length - 1]?.trim();
-    throw new UnprocessableEntityException(
-      lastErrorLine || 'An error occurred while executing the operation',
-    );
   }
 }
