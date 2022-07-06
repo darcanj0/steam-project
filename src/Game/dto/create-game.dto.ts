@@ -12,8 +12,8 @@ import {
 
 export class CreateGameDto {
   @IsString()
-  @MinLength(5)
-  @MaxLength(100)
+  @MinLength(5, { message: 'Game title is too short' })
+  @MaxLength(100, { message: 'Game title is too long' })
   @ApiProperty({
     description: 'The game title',
     example: 'God of War',
@@ -29,8 +29,8 @@ export class CreateGameDto {
   cover_image_url: string;
 
   @IsString()
-  @MinLength(10)
-  @MaxLength(300)
+  @MinLength(10, { message: 'Description is too short' })
+  @MaxLength(300, { message: 'Description is too long' })
   @ApiProperty({
     description: 'A brief description or synopsis of the game.',
     example:
