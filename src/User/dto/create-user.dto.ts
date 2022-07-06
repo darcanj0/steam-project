@@ -5,11 +5,14 @@ import {
   IsNotEmpty,
   IsString,
   Matches,
+  MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
-  @IsNotEmpty()
+  @MinLength(3, { message: 'User name is too short' })
+  @MaxLength(30, { message: 'User name is too long' })
   @ApiProperty({
     description: 'Name of the user',
     example: 'Daniel',
@@ -24,10 +27,12 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, {
     message:
-      'Your password is too weak. Use 8 characters at least, 1 lower case, 1 upper case, a number and a special character',
+      'Use at least 1 lower case, 1 upper case, a number and a special character',
   })
+  @MinLength(8, {message: 'Password is too short'})
+  @MaxLength(32, {message: 'Password is too long'})
   @ApiProperty({
     description: `At least 1 lowercase alphabetical\nat least 1 uppercase alphabetical\nat least 1 numeric\none special character`,
     example: 'Abcdef@1',
