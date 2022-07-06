@@ -18,8 +18,9 @@ model user {
   is_admin  Boolean
   cpf       String  @unique
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  profile    profile[]
 }
 
 model genre {
@@ -39,6 +40,17 @@ model game {
   score           Float
   trailer_url     String
   gameplay_url    String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model profile {
+  id        String @id @default(uuid())
+  gamer_tag String @unique
+  image_url String
+  user_owner      user   @relation(fields: [user_owner_id], references: [id])
+  user_owner_id  String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
