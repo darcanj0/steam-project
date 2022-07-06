@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleUniqueConstraintError } from 'src/utils/handle-error-constraint-unique.utils';
 import { CreateGameDto } from './dto/create-game.dto';

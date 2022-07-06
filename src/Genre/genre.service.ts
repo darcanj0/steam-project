@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleUniqueConstraintError } from 'src/utils/handle-error-constraint-unique.utils';
 import { CreateGenreDto } from './dto/create-genre.dto';
@@ -31,7 +27,9 @@ export class GenreService {
 
   create(createGenreDto: CreateGenreDto): Promise<Genre> {
     const data = { ...createGenreDto };
-    return this.prisma.genre.create({ data }).catch(handleUniqueConstraintError);
+    return this.prisma.genre
+      .create({ data })
+      .catch(handleUniqueConstraintError);
   }
 
   async update(id: number, updateGenreDto: UpdateGenreDto): Promise<Genre> {
