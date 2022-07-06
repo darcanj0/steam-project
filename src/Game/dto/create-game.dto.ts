@@ -1,24 +1,26 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  isDate,
-  IsNotEmpty,
   IsNumber,
   IsPositive,
   IsString,
   IsUrl,
+  Max,
+  MaxLength,
+  Min,
+  MinLength,
 } from 'class-validator';
 
 export class CreateGameDto {
   @IsString()
-  @IsNotEmpty()
+  @MinLength(5)
+  @MaxLength(100)
   @ApiProperty({
     description: 'The game title',
     example: 'God of War',
   })
   title: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsUrl()
   @ApiProperty({
     description: 'Game cover image',
     example:
@@ -27,7 +29,8 @@ export class CreateGameDto {
   cover_image_url: string;
 
   @IsString()
-  @IsNotEmpty()
+  @MinLength(10)
+  @MaxLength(300)
   @ApiProperty({
     description: 'A brief description or synopsis of the game.',
     example:
@@ -36,7 +39,7 @@ export class CreateGameDto {
   description: string;
 
   @IsNumber()
-  @IsPositive()
+  @Min(1960, { message: 'Year is too old' })
   @ApiProperty({
     description: 'The year the game was or will be released.',
     example: 2018,
@@ -44,6 +47,8 @@ export class CreateGameDto {
   year: number;
 
   @IsNumber()
+  @IsPositive()
+  @Max(100, { message: 'The score must be 100 at max' })
   @ApiProperty({
     description: 'The game score (preferably metacritic score)',
     example: 98,
