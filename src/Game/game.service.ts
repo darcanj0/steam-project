@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { Genre } from 'src/Genre/entities/genre.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.utils';
 import { CreateGameDto } from './dto/create-game.dto';
@@ -11,28 +12,42 @@ import { Game } from './entities/game.entity';
 export class GameService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private gameSelect: Prisma.gameFindManyArgs = {
-    include: { genres: true },
-  };
+  mapGenreObjectArrayToStringArray(genreObjectArray: Genre[]): string[] {
+    //used when reading a game
+    return genreObjectArray.map((genre) => genre.genre_title);
+  }
 
   async findAll(): Promise<Game[]> {
-    const result: Game[] = await this.prisma.game.findMany(this.gameSelect);
-    const games = result.map((game) => {
-      return { ...game, genres: game.genres.map((genre) => genre.genre_title) };
+    const result: Game[] = await this.prisma.game.findMany({
+      include: { genres: true },
+    });
+    const games: Game[] = result.map((game) => {
+      return {
+        ...game,
+        genres: this.mapGenreObjectArrayToStringArray(game.genres),
+      };
     });
     return games;
   }
 
   async verifyIdAndReturnGame(id: string): Promise<Game> {
-    const record = await this.prisma.game.findUnique({ where: { id } });
+    const record = await this.prisma.game.findUnique({
+      where: { id },
+      include: { genres: true },
+    });
     if (!record) {
       throw new NotFoundException(`Id ${id} register was not found.`);
     }
     return record;
   }
 
-  findOne(id: string): Promise<Game> {
-    return this.verifyIdAndReturnGame(id);
+  async findOne(id: string): Promise<Game> {
+    const result: Game = await this.verifyIdAndReturnGame(id);
+    const game = {
+      ...result,
+      genres: this.mapGenreObjectArrayToStringArray(result.genres),
+    };
+    return game;
   }
 
   create(dto: CreateGameDto): Promise<Game> {
@@ -43,23 +58,34 @@ export class GameService {
   async update(id: string, dto: UpdateGameDto) {
     const data: Partial<Game> = { ...dto };
     await this.verifyIdAndReturnGame(id);
-    return this.prisma.game
-      .update({ where: { id }, data })
+    const result: Game = await this.prisma.game
+      .update({ where: { id }, data, include: { genres: true } })
       .catch(handleError);
+    const game: Game = {
+      ...result,
+      genres: this.mapGenreObjectArrayToStringArray(result.genres),
+    };
+    return game;
   }
 
-  setGenres(id: string, dto: SetGameGenresDto) {
-    const data = {
+  async setGenres(id: string, dto: SetGameGenresDto): Promise<Game> {
+    const data: Prisma.gameUpdateInput = {
       genres: {
-        set: dto.genres.map((genre_id) => {
-          return { id: genre_id };
-        }),
+        set: dto.genres.map((genre_id) => ({ id: genre_id })),
       },
     };
-    return this.prisma.game.update({
-      where: { id },
-      data,
-    }).catch(handleError);
+    const result: Game = await this.prisma.game
+      .update({
+        where: { id },
+        data,
+        include: { genres: true },
+      })
+      .catch(handleError);
+    const game: Game = {
+      ...result,
+      genres: this.mapGenreObjectArrayToStringArray(result.genres),
+    };
+    return game;
   }
 
   async remove(id: string) {
