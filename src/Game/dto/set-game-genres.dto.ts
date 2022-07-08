@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsPositive, IsUUID } from 'class-validator';
+import { IsInt, IsPositive } from 'class-validator';
 
 export class SetGameGenresDto {
   @IsInt({ each: true })
