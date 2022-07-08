@@ -24,9 +24,9 @@ model user {
 }
 
 model genre {
-  id          Int          @id @default(autoincrement())
-  genre_title String       @unique
-  game_genre  game_genre[]
+  id          Int    @id @default(autoincrement())
+  genre_title String @unique
+  games       game[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -42,7 +42,7 @@ model game {
   trailer_url           String
   gameplay_url          String
   profile_game_favorite profile_game_favorite[]
-  game_genre            game_genre[]
+  genres                genre[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -58,15 +58,6 @@ model profile {
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-}
-
-model game_genre {
-  id       String @id @default(uuid())
-  game_id  String
-  genre_id Int
-
-  game  game  @relation(fields: [game_id], references: [id])
-  genre genre @relation(fields: [genre_id], references: [id])
 }
 
 model profile_game_favorite {

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { handleUniqueConstraintError } from 'src/utils/handle-error-constraint-unique.utils';
+import { handleError } from 'src/utils/handle-error.utils';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { Profile } from './entities/profile.entity';
@@ -13,7 +13,7 @@ export class ProfileService {
     const data = { ...createProfileDto };
     return this.prisma.profile
       .create({ data })
-      .catch(handleUniqueConstraintError);
+      .catch(handleError);
   }
 
   findAll(): Promise<Profile[]> {
@@ -40,7 +40,7 @@ export class ProfileService {
     const data = { ...updateProfileDto };
     return this.prisma.profile
       .update({ where: { id }, data })
-      .catch(handleUniqueConstraintError);
+      .catch(handleError);
   }
 
   async remove(id: string) {

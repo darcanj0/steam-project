@@ -1,7 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { handleUniqueConstraintError } from 'src/utils/handle-error-constraint-unique.utils';
+import { handleError } from 'src/utils/handle-error.utils';
 import { CreateGameDto } from './dto/create-game.dto';
+import { SetGameGenresDto } from './dto/set-game-genres.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { Game } from './entities/game.entity';
 
@@ -9,8 +11,16 @@ import { Game } from './entities/game.entity';
 export class GameService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll(): Promise<Game[]> {
-    return this.prisma.game.findMany();
+  private gameSelect: Prisma.gameFindManyArgs = {
+    include: { genres: true },
+  };
+
+  async findAll(): Promise<Game[]> {
+    const result: Game[] = await this.prisma.game.findMany(this.gameSelect);
+    const games = result.map((game) => {
+      return { ...game, genres: game.genres.map((genre) => genre.genre_title) };
+    });
+    return games;
   }
 
   async verifyIdAndReturnGame(id: string): Promise<Game> {
@@ -27,7 +37,7 @@ export class GameService {
 
   create(dto: CreateGameDto): Promise<Game> {
     const data: Game = { ...dto };
-    return this.prisma.game.create({ data }).catch(handleUniqueConstraintError);
+    return this.prisma.game.create({ data }).catch(handleError);
   }
 
   async update(id: string, dto: UpdateGameDto) {
@@ -35,7 +45,21 @@ export class GameService {
     await this.verifyIdAndReturnGame(id);
     return this.prisma.game
       .update({ where: { id }, data })
-      .catch(handleUniqueConstraintError);
+      .catch(handleError);
+  }
+
+  setGenres(id: string, dto: SetGameGenresDto) {
+    const data = {
+      genres: {
+        set: dto.genres.map((genre_id) => {
+          return { id: genre_id };
+        }),
+      },
+    };
+    return this.prisma.game.update({
+      where: { id },
+      data,
+    }).catch(handleError);
   }
 
   async remove(id: string) {

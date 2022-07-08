@@ -7,6 +7,7 @@ export class Game {
   score: number;
   trailer_url: string;
   gameplay_url: string;
+  genres?: any[]
   created_at?: Date;
   updated_at?: Date;
 }

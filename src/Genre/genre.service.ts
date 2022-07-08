@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { handleUniqueConstraintError } from 'src/utils/handle-error-constraint-unique.utils';
+import { handleError } from 'src/utils/handle-error.utils';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
 import { Genre } from './entities/genre.entity';
@@ -29,7 +29,7 @@ export class GenreService {
     const data = { ...createGenreDto };
     return this.prisma.genre
       .create({ data })
-      .catch(handleUniqueConstraintError);
+      .catch(handleError);
   }
 
   async update(id: number, updateGenreDto: UpdateGenreDto): Promise<Genre> {
@@ -40,7 +40,7 @@ export class GenreService {
         where: { id },
         data,
       })
-      .catch(handleUniqueConstraintError);
+      .catch(handleError);
   }
 
   async remove(id: number) {
