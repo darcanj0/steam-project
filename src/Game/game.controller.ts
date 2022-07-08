@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateGameDto } from './dto/create-game.dto';
-import { SetGameGenresDto } from './dto/set-game-genres.dto';
+import { UpdateGameGenresDto as UpdateGameGenresDto } from './dto/update-game-genres.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { Game } from './entities/game.entity';
 import { GameService } from './game.service';
@@ -53,12 +53,12 @@ export class GameController {
     return this.gameService.update(id, dto);
   }
 
-  @Patch('setGenres/:id')
+  @Patch('updateGenres/:id')
   @ApiOperation({
     summary: 'Attach genres to a game.'
   })
-  setGenres(@Param('id') id:string, @Body() dto:SetGameGenresDto) {
-    return this.gameService.setGenres(id, dto);
+  updateGenres(@Param('id') id:string, @Body() dto:UpdateGameGenresDto) {
+    return this.gameService.updateGenres(id, dto);
   }
 
   @Delete(':id')

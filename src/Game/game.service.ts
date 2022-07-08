@@ -4,7 +4,7 @@ import { Genre } from 'src/Genre/entities/genre.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.utils';
 import { CreateGameDto } from './dto/create-game.dto';
-import { SetGameGenresDto } from './dto/set-game-genres.dto';
+import { UpdateGameGenresDto } from './dto/update-game-genres.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { Game } from './entities/game.entity';
 
@@ -68,7 +68,7 @@ export class GameService {
     return game;
   }
 
-  async setGenres(id: string, dto: SetGameGenresDto): Promise<Game> {
+  async updateGenres(id: string, dto: UpdateGameGenresDto): Promise<Game> {
     const data: Prisma.gameUpdateInput = {
       genres: {
         set: dto.genres.map((genre_id) => ({ id: genre_id })),
