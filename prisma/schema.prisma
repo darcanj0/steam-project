@@ -33,38 +33,29 @@ model genre {
 }
 
 model game {
-  id                    String                  @id @default(uuid())
-  title                 String                  @unique
-  cover_image_url       String
-  description           String
-  year                  Int
-  score                 Float
-  trailer_url           String
-  gameplay_url          String
-  profile_game_favorite profile_game_favorite[]
-  genres                genre[]
+  id              String    @id @default(uuid())
+  title           String    @unique
+  cover_image_url String
+  description     String
+  year            Int
+  score           Float
+  trailer_url     String
+  gameplay_url    String
+  profiles        profile[]
+  genres          genre[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
 model profile {
-  id                    String                  @id @default(uuid())
-  gamer_tag             String                  @unique
-  image_url             String
-  user_owner            user                    @relation(fields: [user_owner_id], references: [id])
-  user_owner_id         String
-  profile_game_favorite profile_game_favorite[]
+  id             String @id @default(uuid())
+  gamer_tag      String @unique
+  image_url      String
+  user_owner     user   @relation(fields: [user_owner_id], references: [id], onDelete: Cascade)
+  user_owner_id  String
+  favorite_games game[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-}
-
-model profile_game_favorite {
-  id         String @id @default(uuid())
-  game_id    String
-  profile_id String
-
-  game    game    @relation(fields: [game_id], references: [id])
-  profile profile @relation(fields: [profile_id], references: [id])
 }
