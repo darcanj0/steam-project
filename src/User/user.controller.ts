@@ -55,7 +55,7 @@ export class UserController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Delete an user by id',
+    summary: 'Delete an user by id. It also deletes all profiles this user owns',
   })
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
