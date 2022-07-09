@@ -57,7 +57,7 @@ export class GameController {
   @ApiOperation({
     summary: 'Attach genres to a game.'
   })
-  updateGenres(@Param('id') id:string, @Body() dto:UpdateGameGenresDto) {
+  updateGenres(@Param('id') id:string, @Body() dto:UpdateGameGenresDto): Promise<Game> {
     return this.gameService.updateGenres(id, dto);
   }
 

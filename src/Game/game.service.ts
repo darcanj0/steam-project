@@ -49,7 +49,7 @@ export class GameService {
     return this.prisma.game.create({ data }).catch(handleError);
   }
 
-  async update(id: string, dto: UpdateGameDto) {
+  async update(id: string, dto: UpdateGameDto): Promise<Game> {
     const data: Partial<Game> = { ...dto };
     await this.verifyIdAndReturnGame(id);
     return this.prisma.game
