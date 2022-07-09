@@ -41,7 +41,7 @@ export class ProfileService {
     return record;
   }
 
-  async favorite(id: string, dto: FavoriteGameDto) {
+  async favorite(id: string, dto: FavoriteGameDto): Promise<Profile> {
     await this.verifyIdAndReturnProfile(id);
     const data: Prisma.profileUpdateInput = {
       favorite_games: { connect: [{ id: dto.id }] },
@@ -55,7 +55,7 @@ export class ProfileService {
       .catch(handleError);
   }
 
-  async unfavorite(id: string, dto: FavoriteGameDto) {
+  async unfavorite(id: string, dto: FavoriteGameDto): Promise<Profile> {
     await this.verifyIdAndReturnProfile(id);
     const data: Prisma.profileUpdateInput = {
       favorite_games: { disconnect: [{ id: dto.id }] },

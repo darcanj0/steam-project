@@ -49,7 +49,7 @@ export class ProfileController {
   @ApiOperation({
     summary: 'Makes a relation of favorite between a profile and a game',
   })
-  favorite(@Param('profileId') id: string, @Body() dto: FavoriteGameDto) {
+  favorite(@Param('profileId') id: string, @Body() dto: FavoriteGameDto): Promise<Profile> {
     return this.profileService.favorite(id, dto);
   }
 
@@ -57,7 +57,7 @@ export class ProfileController {
   @ApiOperation({
     summary: 'Undo relation of favorite between a profile and a game',
   })
-  unfavorite(@Param('profileId') id: string, @Body() dto: FavoriteGameDto) {
+  unfavorite(@Param('profileId') id: string, @Body() dto: FavoriteGameDto): Promise<Profile> {
     return this.profileService.unfavorite(id, dto);
   }
 
