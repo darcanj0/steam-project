@@ -14,6 +14,7 @@ import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Profile } from './entities/profile.entity';
+import { FavoriteGameDto } from './dto/favorite-game.dto';
 
 @ApiTags('profile')
 @Controller('profile')
@@ -42,6 +43,22 @@ export class ProfileController {
   })
   create(@Body() createProfileDto: CreateProfileDto): Promise<Profile> {
     return this.profileService.create(createProfileDto);
+  }
+
+  @Patch('favorite/:profileId')
+  @ApiOperation({
+    summary: 'Makes a relation of favorite between a profile and a game',
+  })
+  favorite(@Param('profileId') id: string, @Body() dto: FavoriteGameDto) {
+    return this.profileService.favorite(id, dto);
+  }
+
+  @Patch('unfavorite/:profileId')
+  @ApiOperation({
+    summary: 'Undo relation of favorite between a profile and a game',
+  })
+  unfavorite(@Param('profileId') id: string, @Body() dto: FavoriteGameDto) {
+    return this.profileService.unfavorite(id, dto);
   }
 
   @Patch(':id')
