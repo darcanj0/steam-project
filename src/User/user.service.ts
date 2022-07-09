@@ -1,14 +1,14 @@
 import {
   BadRequestException,
   Injectable,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
+import * as bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { handleError } from 'src/utils/handle-error.utils';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import * as bcrypt from 'bcryptjs';
-import { handleError } from 'src/utils/handle-error.utils';
 
 @Injectable()
 export class UserService {
@@ -19,6 +19,7 @@ export class UserService {
     is_admin: true,
     password: false,
     cpf: true,
+    profiles: {select: {id: true, gamer_tag: true}},
     created_at: true,
     updated_at: true,
   };

@@ -20,7 +20,7 @@ model user {
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  profile    profile[]
+  profiles    profile[]
 }
 
 model genre {
