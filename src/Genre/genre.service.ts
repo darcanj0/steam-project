@@ -1,9 +1,6 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { handleError } from 'src/utils/handle-error.utils';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
 import { Genre } from './entities/genre.entity';
@@ -16,7 +13,7 @@ export class GenreService {
     return this.prisma.genre.findMany();
   }
 
-  async findById(id: number): Promise<Genre> {
+  async verifyIdAndReturnGenre(id: number): Promise<Genre> {
     const record = await this.prisma.genre.findUnique({ where: { id } });
     if (!record) {
       throw new NotFoundException(`Id ${id} register was not found.`);
@@ -25,37 +22,31 @@ export class GenreService {
   }
 
   findOne(id: number): Promise<Genre> {
-    return this.findById(id);
+    return this.verifyIdAndReturnGenre(id);
   }
 
   create(createGenreDto: CreateGenreDto): Promise<Genre> {
     const data = { ...createGenreDto };
-    return this.prisma.genre.create({ data }).catch(this.handleError);
+    return this.prisma.genre
+      .create({ data })
+      .catch(handleError);
   }
 
   async update(id: number, updateGenreDto: UpdateGenreDto): Promise<Genre> {
-    await this.findById(id);
+    await this.verifyIdAndReturnGenre(id);
     const data: Partial<Genre> = { ...updateGenreDto };
     return this.prisma.genre
       .update({
         where: { id },
         data,
       })
-      .catch(this.handleError);
+      .catch(handleError);
   }
 
   async remove(id: number) {
-    await this.findById(id);
+    await this.verifyIdAndReturnGenre(id);
     await this.prisma.genre.delete({
       where: { id },
     });
-  }
-
-  handleError(error: Error): undefined {
-    const errorLines = error.message?.split('\n');
-    const lastErrorLine = errorLines[errorLines.length - 1]?.trim();
-    throw new UnprocessableEntityException(
-      lastErrorLine || 'An error occurred while executing the operation',
-    );
   }
 }
