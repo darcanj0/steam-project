@@ -7,8 +7,10 @@ import {
   HttpStatus,
   Param,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { Favorite } from './entity/favorite.entity';
 import { FavoriteService } from './favorite.service';
@@ -19,6 +21,8 @@ export class FavoriteController {
   constructor(private readonly favoriteService: FavoriteService) {}
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Favorite a game',
   })
@@ -27,6 +31,8 @@ export class FavoriteController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Unfavorite a game',
   })
@@ -36,6 +42,8 @@ export class FavoriteController {
   }
 
   @Get(':profileId')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Lists all favorited games of a profile',
   })
