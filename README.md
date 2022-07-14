@@ -32,6 +32,12 @@ For more information...
 
 [Check Swagger docs if you are running locally](http://localhost:3001/api)
 
+
+[Check Swagger docs (production)](https://steam-project.up.railway.app/api)
+
+
+[Check Swagger docs (development)](https://steam-project-development.up.railway.app/api)
+
 ## Cloning
 
 ```bash
