@@ -45,22 +45,6 @@ export class ProfileController {
     return this.profileService.create(createProfileDto);
   }
 
-  @Patch('favorite/:profileId')
-  @ApiOperation({
-    summary: 'Makes a relation of favorite between a profile and a game',
-  })
-  favorite(@Param('profileId') id: string, @Body() dto: FavoriteGameDto): Promise<Profile> {
-    return this.profileService.favorite(id, dto);
-  }
-
-  @Patch('unfavorite/:profileId')
-  @ApiOperation({
-    summary: 'Undo relation of favorite between a profile and a game',
-  })
-  unfavorite(@Param('profileId') id: string, @Body() dto: FavoriteGameDto): Promise<Profile> {
-    return this.profileService.unfavorite(id, dto);
-  }
-
   @Patch(':id')
   @ApiOperation({
     summary: 'Updates a profile by id',

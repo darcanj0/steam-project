@@ -1,9 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.utils';
 import { CreateProfileDto } from './dto/create-profile.dto';
-import { FavoriteGameDto } from './dto/favorite-game.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { Profile } from './entities/profile.entity';
 
@@ -16,7 +14,6 @@ export class ProfileService {
     gamer_tag: true,
     image_url: true,
     user_owner_id: true,
-    favorite_games: { select: { id: true, title: true } },
     created_at: true,
     updated_at: true,
   };
@@ -39,34 +36,6 @@ export class ProfileService {
       throw new NotFoundException(`Id ${id} register was not found.`);
     }
     return record;
-  }
-
-  async favorite(id: string, dto: FavoriteGameDto): Promise<Profile> {
-    await this.verifyIdAndReturnProfile(id);
-    const data: Prisma.profileUpdateInput = {
-      favorite_games: { connect: [{ id: dto.id }] },
-    };
-    return this.prisma.profile
-      .update({
-        where: { id },
-        select: this.profileSelect,
-        data,
-      })
-      .catch(handleError);
-  }
-
-  async unfavorite(id: string, dto: FavoriteGameDto): Promise<Profile> {
-    await this.verifyIdAndReturnProfile(id);
-    const data: Prisma.profileUpdateInput = {
-      favorite_games: { disconnect: [{ id: dto.id }] },
-    };
-    return this.prisma.profile
-      .update({
-        where: { id },
-        select: this.profileSelect,
-        data,
-      })
-      .catch(handleError);
   }
 
   findOne(id: string): Promise<Profile> {
