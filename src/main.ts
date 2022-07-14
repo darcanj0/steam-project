@@ -16,6 +16,7 @@ async function bootstrap() {
     .addTag('user')
     .addTag('profile')
     .addTag('game')
+    .addTag('favorite')
     .addTag('genre')
     .build();
 
