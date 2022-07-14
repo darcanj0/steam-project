@@ -1,19 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateFavoriteDto {
-  @IsString()
-  @IsNotEmpty()
+  @IsUUID()
   @ApiProperty({
-    description: 'Title of the game being favorited',
+    description: 'Id of the game being favorited',
+    example: 'Insert the game id here',
   })
-  game_title: string;
+  game_id: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsUUID()
   @ApiProperty({
-    description: 'Gamertag of the profile that is favoriting',
-    example: 'darcanjo_',
+    description: 'Id of the profile that is favoriting',
+    example: 'Insert the profile id here',
   })
-  gamer_tag: string;
+  profile_id: string;
 }

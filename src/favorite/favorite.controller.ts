@@ -13,8 +13,8 @@ import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { Favorite } from './entity/favorite.entity';
 import { FavoriteService } from './favorite.service';
 
-@Controller('favorite')
 @ApiTags('favorite')
+@Controller('favorite')
 export class FavoriteController {
   constructor(private readonly favoriteService: FavoriteService) {}
 
@@ -35,19 +35,19 @@ export class FavoriteController {
     return this.favoriteService.removeFavorite(id);
   }
 
-  @Get(':gamertag')
+  @Get(':profileId')
   @ApiOperation({
     summary: 'Lists all favorited games of a profile',
   })
-  findProfileFavorites(@Param('gamertag') gamer_tag: string): Promise<Favorite[]> {
-    return this.favoriteService.findProfileFavorites(gamer_tag);
+  findProfileFavorites(@Param('profileId') profileId: string): Promise<Favorite[]> {
+    return this.favoriteService.findProfileFavorites(profileId);
   }
 
-  @Get(':gametitle')
+  @Get('game/:gameId')
   @ApiOperation({
     summary: 'Lists all profiles that favorited a given game',
   })
-  findProfilesWhoFavorited(@Param('gametitle') game_title: string): Promise<Favorite[]> {
-    return this.favoriteService.findProfilesWhoFavorited(game_title);
+  findProfilesWhoFavorited(@Param('gameId') gameId: string): Promise<Favorite[]> {
+    return this.favoriteService.findProfilesWhoFavorited(gameId);
   }
 }

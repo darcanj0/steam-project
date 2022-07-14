@@ -11,33 +11,33 @@ import { Favorite } from './entity/favorite.entity';
 export class FavoriteService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async verifyGamerTagAndReturnProfile(gamer_tag: string): Promise<Profile> {
+  async verifyIdAndReturnProfile(id: string): Promise<Profile> {
     const profile = await this.prisma.profile.findUnique({
-      where: { gamer_tag },
+      where: { id },
     });
     if (!profile) {
-      throw new NotFoundException(`Gamertag ${gamer_tag} register not found`);
+      throw new NotFoundException(`Id ${id} register was not found`);
     }
     return profile;
   }
 
-  async verifyTitleAndReturnGame(game_title: string): Promise<Game> {
+  async verifyIdAndReturnGame(id: string): Promise<Game> {
     const game = await this.prisma.game.findUnique({
-      where: { title: game_title },
+      where: { id },
     });
     if (!game) {
-      throw new NotFoundException(`Title ${game_title} register not found`);
+      throw new NotFoundException(`Id ${id} register was not found`);
     }
     return game;
   }
 
   async createFavorite(dto: CreateFavoriteDto): Promise<Favorite> {
-    const { gamer_tag, game_title } = dto;
-    await this.verifyGamerTagAndReturnProfile(gamer_tag);
-    await this.verifyTitleAndReturnGame(game_title);
+    const { game_id, profile_id } = dto;
+    await this.verifyIdAndReturnProfile(profile_id);
+    await this.verifyIdAndReturnGame(game_id);
     const data: Prisma.favoriteCreateInput = {
-      game: { connect: { title: game_title } },
-      profile: { connect: { gamer_tag } },
+      game: { connect: { id: game_id } },
+      profile: { connect: { id: profile_id } },
     };
     return this.prisma.favorite.create({ data }).catch(handleError);
   }
@@ -57,13 +57,15 @@ export class FavoriteService {
     return this.prisma.favorite.delete({ where: { id } });
   }
 
-  async findProfileFavorites(gamer_tag: string): Promise<Favorite[]> {
-    await this.verifyGamerTagAndReturnProfile(gamer_tag);
-    return this.prisma.favorite.findMany({ where: { gamer_tag } });
+  async findProfileFavorites(profile_id: string): Promise<Favorite[]> {
+    await this.verifyIdAndReturnProfile(profile_id);
+    return this.prisma.favorite.findMany({
+      where: { profile: { id: profile_id } },
+    });
   }
 
-  async findProfilesWhoFavorited(game_title: string): Promise<Favorite[]> {
-    await this.verifyTitleAndReturnGame(game_title);
-    return this.prisma.favorite.findMany({ where: { game_title } });
+  async findProfilesWhoFavorited(game_id: string): Promise<Favorite[]> {
+    await this.verifyIdAndReturnGame(game_id);
+    return this.prisma.favorite.findMany({ where: { game: { id: game_id } } });
   }
 }
