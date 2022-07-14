@@ -13,11 +13,13 @@ async function bootstrap() {
     .setDescription(`User-Profile-Games management API`)
     .setVersion('1.0.0')
     .addTag('status')
+    .addTag('auth')
     .addTag('user')
     .addTag('profile')
     .addTag('game')
     .addTag('favorite')
     .addTag('genre')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
