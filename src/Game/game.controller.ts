@@ -8,8 +8,10 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameGenresDto as UpdateGameGenresDto } from './dto/update-game-genres.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
@@ -38,6 +40,8 @@ export class GameController {
   }
 
   @Post()
+  @UseGuards(AuthGuard('admin'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Create a new game',
   })
@@ -46,6 +50,8 @@ export class GameController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard('admin'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Update a game by id',
   })
@@ -54,6 +60,8 @@ export class GameController {
   }
 
   @Patch('updateGenres/:id')
+  @UseGuards(AuthGuard('admin'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Attach genres to a game.'
   })
@@ -62,6 +70,8 @@ export class GameController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('admin'))
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Delete a game by id',
