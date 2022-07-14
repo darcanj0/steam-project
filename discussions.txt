@@ -3,4 +3,4 @@
 rota para quem favoritou o jogo
 quantos favoritaram o jogo
 emails promocionais para quem favoritou o jogo
-admin pode fazer descontos
+admin pode fazer desconto
