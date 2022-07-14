@@ -1,22 +1,13 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  HttpCode,
-  HttpStatus,
-  UseGuards,
+  Body, Controller, Delete, Get, HttpCode,
+  HttpStatus, Param, Patch, Post, UseGuards
 } from '@nestjs/common';
-import { ProfileService } from './profile.service';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Profile } from './entities/profile.entity';
-import { FavoriteGameDto } from './dto/favorite-game.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { ProfileService } from './profile.service';
 
 @ApiTags('profile')
 @Controller('profile')
