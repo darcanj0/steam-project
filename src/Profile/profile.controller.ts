@@ -8,13 +8,15 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Profile } from './entities/profile.entity';
 import { FavoriteGameDto } from './dto/favorite-game.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('profile')
 @Controller('profile')
@@ -22,6 +24,8 @@ export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
   @Get()
+  @UseGuards(AuthGuard('admin'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Lists all profiles',
   })
@@ -30,6 +34,8 @@ export class ProfileController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Lists a profile by id',
   })
@@ -38,6 +44,8 @@ export class ProfileController {
   }
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Creates a new profile',
   })
@@ -46,6 +54,8 @@ export class ProfileController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Updates a profile by id',
   })
@@ -57,6 +67,8 @@ export class ProfileController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Deletes a profile by id',
