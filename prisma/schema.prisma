@@ -20,7 +20,7 @@ model user {
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  profiles    profile[]
+  profiles   profile[]
 }
 
 model genre {
@@ -33,15 +33,15 @@ model genre {
 }
 
 model game {
-  id              String    @id @default(uuid())
-  title           String    @unique
+  id              String     @id @default(uuid())
+  title           String     @unique
   cover_image_url String
   description     String
   year            Int
   score           Float
   trailer_url     String
   gameplay_url    String
-  profiles        profile[]
+  favorites       favorite[]
   genres          genre[]
 
   created_at DateTime @default(now())
@@ -49,13 +49,26 @@ model game {
 }
 
 model profile {
-  id             String @id @default(uuid())
-  gamer_tag      String @unique
-  image_url      String
-  user_owner     user   @relation(fields: [user_owner_id], references: [id], onDelete: Cascade)
-  user_owner_id  String
-  favorite_games game[]
+  id            String     @id @default(uuid())
+  gamer_tag     String     @unique
+  image_url     String
+  user_owner    user       @relation(fields: [user_owner_id], references: [id], onDelete: Cascade)
+  user_owner_id String
+  favorites     favorite[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model favorite {
+  id           String   @id @default(uuid())
+  favorited_at DateTime @default(now())
+
+  game_title String
+  game       game   @relation(fields: [game_title], references: [title], onDelete: Cascade)
+
+  gamer_tag String
+  profile   profile @relation(fields: [gamer_tag], references: [gamer_tag], onDelete: Cascade)
+
+  @@unique([game_title, gamer_tag])
 }
