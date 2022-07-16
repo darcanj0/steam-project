@@ -8,10 +8,12 @@ import {
   Param,
   Patch,
   Post,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -32,13 +34,20 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  verifySelfOperation(idParam: string, user: User) {
+    if (user.id != idParam && !user.is_admin) {
+      throw new UnauthorizedException('User does not exist or is unauthorized');
+    }
+  }
+
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'List an user by id',
   })
-  findOne(@Param('id') id: string): Promise<User> {
+  findOne(@Param('id') id: string, @LoggedUser() user: User): Promise<User> {
+    this.verifySelfOperation(id, user);
     return this.userService.findOne(id);
   }
 
@@ -56,7 +65,14 @@ export class UserController {
   @ApiOperation({
     summary: 'Update an user by id',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateUserDto): Promise<User> {
+  update(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserDto,
+    @LoggedUser() user: User,
+  ): Promise<User> {
+    if (id != user.id) {
+      throw new UnauthorizedException('User does not exist or is unauthorized');
+    }
     return this.userService.update(id, dto);
   }
 
@@ -68,7 +84,8 @@ export class UserController {
     summary:
       'Delete an user by id. It also deletes all profiles this user owns',
   })
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string, @LoggedUser() user: User) {
+    this.verifySelfOperation(id, user);
     return this.userService.remove(id);
   }
 }
