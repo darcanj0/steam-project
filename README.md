@@ -7,7 +7,7 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+  <p align="center"></p>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
@@ -21,70 +21,66 @@
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# Steam Project Server
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. This project has educational purposes and it consist in an API for a Steam/Xbox-live/Psn clone.
-In this systems, users have profiles, in which they can display the games registered in the Database, sorting by genre. Furthermore, each profile can create a custom list of favorite games...
-For more information...
+Educational project developed in the 4th module of my Web Development course at Blue EdTech. It consists in an API of an environment based in Steam, Xbox Live and Playstation Store.
 
-[Check Swagger docs if you are running locally](http://localhost:3001/api)
+## Prerequisites
 
+To run this application locally you'll need:
 
-[Check Swagger docs (production)](https://steam-project.up.railway.app/api)
+- **Node js** v16.15.0 or superior; (https://nodejs.org/en/download/)
+- **NPM** v8.5.5 or superior;
+- **Nest js** v8.5.5 or superior; (https://docs.nestjs.com/)
+- **PostgresSQL** v8.2.6 or superior. (https://www.postgresql.org/download/)
 
+## Documentation
 
-[Check Swagger docs (development)](https://steam-project-development.up.railway.app/api)
+- [Documentation (development)](https://steam-project-server-development.up.railway.app/api/)
+- [Documentation (production)](https://steam-project-server-production.up.railway.app/api/)
+- [Documentation (local)](https://localhost:3001/api)
 
-## Cloning
+## Cloning and running
 
-```bash
-$ git clone https://github.com/darcanj0/steam-project.git
-```
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
+Cloning
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  $ git clone https://github.com/darcanj0/steam-project.git
+  $ cd steam-project
 ```
 
-## Test
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`DATABASE_URL`
+
+`JWT_SECRET`
+
+## Run Locally
+
+Go to the project directory
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  cd steam-project
 ```
 
-## Support
+Install dependencies
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+  npm install
+```
 
-## Stay in touch
+Start the server
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+  npm run start:dev
+```
+
+## Authors
+
+- [@darcanj0](https://www.github.com/darcanj0)
 
 ## License
 
