@@ -44,7 +44,11 @@ export class AuthService {
     delete user.password;
     return {
       user,
-      token: this.jwtService.sign({ email, is_admin: user.is_admin }),
+      token: this.jwtService.sign({
+        email,
+        is_admin: user.is_admin,
+        id: user.id,
+      }),
     };
   }
 }
