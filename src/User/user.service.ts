@@ -1,7 +1,7 @@
 import {
   BadRequestException,
   Injectable,
-  NotFoundException
+  NotFoundException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -19,7 +19,7 @@ export class UserService {
     is_admin: true,
     password: false,
     cpf: true,
-    profiles: {select: {id: true, gamer_tag: true}},
+    profiles: { select: { id: true, gamer_tag: true, image_url: true } },
     created_at: true,
     updated_at: true,
   };
