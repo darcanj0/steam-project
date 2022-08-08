@@ -41,7 +41,7 @@ To run this application locally you'll need:
 - [Documentation (production)](https://steam-project-server-production.up.railway.app/api/)
 - [Documentation (local)](https://localhost:3001/api)
 
-## Cloning and running
+## Cloning
 
 Cloning
 
@@ -70,6 +70,12 @@ Install dependencies
 
 ```bash
   npm install
+```
+
+Seed the Database
+
+```bash
+  npm run seed
 ```
 
 Start the server
