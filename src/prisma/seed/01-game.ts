@@ -10,6 +10,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 83,
     gameplay_url: 'https://www.youtube.com/watch?v=UPtoIy-oPWQ',
     trailer_url: 'https://www.youtube.com/watch?v=Jcr8qmrnOKE',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
     title: 'Alien Isolation',
@@ -20,16 +28,36 @@ export const games: Prisma.gameCreateInput[] = [
     score: 83,
     gameplay_url: 'https://www.youtube.com/watch?v=BIe58zZ85LQ',
     trailer_url: 'https://www.youtube.com/watch?v=7h0cgmvIrZw',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Survival Horror' },
+          where: { genre_title: 'Survival Horror' },
+        },
+      ],
+    },
   },
   {
     title: "Assassin's Creed Valhalla",
-    cover_image_url: 'https://iili.io/Sro0fs.jpg',
+    cover_image_url: 'https://iili.io/Sro10G.jpg',
     description:
       "Choose your fate in Assassin's Creed® Valhalla. From outcast to living legend, embark on an odyssey to uncover the secrets of your past and change the fate of Ancient Scandinavia.",
     year: 2021,
     score: 83,
     gameplay_url: 'https://www.youtube.com/watch?v=AM8C_68n9_w',
     trailer_url: 'https://www.youtube.com/watch?v=TUbgBVTD7VI',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
     title: "Assassin's Creed Odyssey",
@@ -40,6 +68,18 @@ export const games: Prisma.gameCreateInput[] = [
     score: 83,
     gameplay_url: 'https://www.youtube.com/watch?v=Q0Fg6jJ9ouI',
     trailer_url: 'https://www.youtube.com/watch?v=EIFHVyPdlBw',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
     title: "Baldur's Gate 3",
@@ -50,6 +90,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 83,
     gameplay_url: 'https://www.youtube.com/watch?v=kbeclYDBDbM',
     trailer_url: 'https://www.youtube.com/watch?v=wWHEw36gTwU',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
     title: 'Battlefield V',
@@ -60,6 +108,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 83,
     gameplay_url: 'https://www.youtube.com/watch?v=PW9Vf0wVw2s',
     trailer_url: 'https://www.youtube.com/watch?v=fb1MR85XFOc',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
     title: 'Brawlhalla',
@@ -70,16 +126,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 80,
     gameplay_url: 'https://www.youtube.com/watch?v=6ABtV9fiUfc',
     trailer_url: 'https://www.youtube.com/watch?v=Mx25Q3LKQ9Q',
-  },
-  {
-    title: 'Control',
-    cover_image_url: 'https://iili.io/SroWe2.jpg',
-    description:
-      'Winner of over 80 awards, Control is a visually stunning third-person action-adventure that will keep you on the edge of your seat.',
-    year: 2020,
-    score: 82,
-    gameplay_url: 'https://www.youtube.com/watch?v=AJ7U9jHXeWk',
-    trailer_url: 'https://www.youtube.com/watch?v=PT5yMfC9LQM',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Fight' },
+          where: { genre_title: 'Fight' },
+        },
+      ],
+    },
   },
   {
     title: 'Control',
@@ -90,6 +144,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 82,
     gameplay_url: 'https://www.youtube.com/watch?v=AJ7U9jHXeWk',
     trailer_url: 'https://www.youtube.com/watch?v=PT5yMfC9LQM',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+      ],
+    },
   },
   {
     title: 'Cuphead',
@@ -100,6 +162,18 @@ export const games: Prisma.gameCreateInput[] = [
     score: 88,
     gameplay_url: 'https://www.youtube.com/watch?v=h8-FvIarRIU',
     trailer_url: 'https://www.youtube.com/watch?v=NN-9SQXoi50',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'Indie' },
+          where: { genre_title: 'Indie' },
+        },
+      ],
+    },
   },
   {
     title: 'Cyberpunk 2077',
@@ -110,6 +184,18 @@ export const games: Prisma.gameCreateInput[] = [
     score: 86,
     gameplay_url: 'https://www.youtube.com/watch?v=NtnJENMtZuE',
     trailer_url: 'https://www.youtube.com/watch?v=liuFhVXAlZw',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
     title: 'Dead by Daylight',
@@ -130,6 +216,18 @@ export const games: Prisma.gameCreateInput[] = [
     score: 78,
     gameplay_url: 'https://www.youtube.com/watch?v=mG8M5jqH2mA',
     trailer_url: 'https://www.youtube.com/watch?v=RfUoz1_i5_E',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
     title: 'Devil May Cry 5',
@@ -140,6 +238,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 88,
     gameplay_url: 'https://www.youtube.com/watch?v=4uAGiXow1Vw',
     trailer_url: 'https://www.youtube.com/watch?v=KMSGj9Y2T9Q',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+      ],
+    },
   },
   {
     title: 'Dying Light',
@@ -150,6 +256,18 @@ export const games: Prisma.gameCreateInput[] = [
     score: 74,
     gameplay_url: 'https://www.youtube.com/watch?v=2rYkrGvh_oI',
     trailer_url: 'https://www.youtube.com/watch?v=CWX6DbAMTR4',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
     title: 'FarCry 5',
@@ -160,6 +278,18 @@ export const games: Prisma.gameCreateInput[] = [
     score: 81,
     gameplay_url: 'https://www.youtube.com/watch?v=hseQ1ZD5L3c',
     trailer_url: 'https://www.youtube.com/watch?v=nWAo_PpCpfs',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
     title: 'FIFA 22',
@@ -170,6 +300,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 73,
     gameplay_url: 'https://www.youtube.com/watch?v=UlGnKVD1Qao',
     trailer_url: 'https://www.youtube.com/watch?v=SYsi5QuOJNE',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Sports' },
+          where: { genre_title: 'Sports' },
+        },
+      ],
+    },
   },
   {
     title: 'For Honor',
@@ -180,6 +318,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 78,
     gameplay_url: 'https://www.youtube.com/watch?v=BdwZ1Xx081k',
     trailer_url: 'https://www.youtube.com/watch?v=y1HkuGUaNBY',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Fight' },
+          where: { genre_title: 'Fight' },
+        },
+      ],
+    },
   },
   {
     title: 'Forza Horizon 5',
@@ -190,6 +336,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 92,
     gameplay_url: 'https://www.youtube.com/watch?v=E2Ah8Dr9o2I',
     trailer_url: 'https://www.youtube.com/watch?v=agI0xMBQo2U',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Sports' },
+          where: { genre_title: 'Sports' },
+        },
+      ],
+    },
   },
   {
     title: 'God of War',
@@ -200,6 +354,18 @@ export const games: Prisma.gameCreateInput[] = [
     score: 98,
     gameplay_url: 'https://www.youtube.com/watch?v=Wf5tpMhziII',
     trailer_url: 'https://www.youtube.com/watch?v=FyIwEFXOcaE',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
     title: 'GTA V',
@@ -220,6 +386,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 87,
     gameplay_url: 'https://www.youtube.com/watch?v=NK2nHNMko4Y',
     trailer_url: 'https://www.youtube.com/watch?v=PyMlV5_HRWk',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
     title: "Hellblade: Senua's Sacrifice",
@@ -230,6 +404,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 88,
     gameplay_url: 'https://www.youtube.com/watch?v=l7vCzaSmbq0',
     trailer_url: 'https://www.youtube.com/watch?v=FwIppjFePEM',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+      ],
+    },
   },
   {
     title: 'Hogwarts Legacy',
@@ -250,6 +432,18 @@ export const games: Prisma.gameCreateInput[] = [
     score: 89,
     gameplay_url: 'https://www.youtube.com/watch?v=Uv6OvwqEPGM',
     trailer_url: 'https://www.youtube.com/watch?v=u4-FCsiF5x4',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
     title: 'Injustice 2',
@@ -260,6 +454,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 87,
     gameplay_url: 'https://www.youtube.com/watch?v=BkUQLSe5NNE',
     trailer_url: 'https://www.youtube.com/watch?v=oDav-JfidL0',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Fight' },
+          where: { genre_title: 'Fight' },
+        },
+      ],
+    },
   },
   {
     title: 'Star Wars: Jedi Fallen Order',
@@ -270,6 +472,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 79,
     gameplay_url: 'https://www.youtube.com/watch?v=0GLbwkfhYZk',
     trailer_url: 'https://www.youtube.com/watch?v=0GLbwkfhYZk',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
     title: 'Madden NFL 23',
@@ -280,6 +490,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 68,
     gameplay_url: 'https://www.youtube.com/watch?v=LklQkylauiw',
     trailer_url: 'https://www.youtube.com/watch?v=Qv6G_w8RUOo',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Sports' },
+          where: { genre_title: 'Sports' },
+        },
+      ],
+    },
   },
   {
     title: "Marvel's Spider Man Remastered",
@@ -290,9 +508,17 @@ export const games: Prisma.gameCreateInput[] = [
     score: 87,
     gameplay_url: 'https://www.youtube.com/watch?v=99QO14AClIQ',
     trailer_url: 'https://www.youtube.com/watch?v=1E051WtpyWg',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+      ],
+    },
   },
   {
-    title: "Marvel's Spider Man Remastered",
+    title: 'Mortal Kombat 11',
     cover_image_url: 'https://iili.io/Srx9II.jpg',
     description:
       'Mortal Kombat is back and better than ever in the next evolution of the iconic franchise.',
@@ -300,6 +526,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 88,
     gameplay_url: 'https://www.youtube.com/watch?v=RkAzHyw85h8',
     trailer_url: 'https://www.youtube.com/watch?v=UoTams2yc0s',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Fight' },
+          where: { genre_title: 'Fight' },
+        },
+      ],
+    },
   },
   {
     title: 'Monster Hunter World',
@@ -310,6 +544,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 90,
     gameplay_url: 'https://www.youtube.com/watch?v=q3SSWTqr850',
     trailer_url: 'https://www.youtube.com/watch?v=Ro6r15wzp2o',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
     title: 'Multiversus',
@@ -320,6 +562,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 80,
     gameplay_url: 'https://www.youtube.com/watch?v=zCNAbJ8vOME',
     trailer_url: 'https://www.youtube.com/watch?v=zCNAbJ8vOME',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Fight' },
+          where: { genre_title: 'Fight' },
+        },
+      ],
+    },
   },
   {
     title: 'NBA 2k23',
@@ -330,6 +580,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 80,
     gameplay_url: 'https://www.youtube.com/watch?v=jOCs6ys57L8',
     trailer_url: 'https://www.youtube.com/watch?v=R1RMvl_Ag28',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Sports' },
+          where: { genre_title: 'Sports' },
+        },
+      ],
+    },
   },
   {
     title: "No Man's Sky",
@@ -340,16 +598,14 @@ export const games: Prisma.gameCreateInput[] = [
     score: 71,
     gameplay_url: 'https://www.youtube.com/watch?v=IixH_wRcr_Q',
     trailer_url: 'https://www.youtube.com/watch?v=nLtmEjqzg7M',
-  },
-  {
-    title: "No Man's Sky",
-    cover_image_url: 'https://iili.io/Srx2Bn.jpg',
-    description:
-      "No Man's Sky is a game about exploration and survival in an infinite procedurally generated universe.",
-    year: 2016,
-    score: 71,
-    gameplay_url: 'https://www.youtube.com/watch?v=qDDHdl422HY',
-    trailer_url: 'https://www.youtube.com/watch?v=lsXMumRLo6I',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Survival' },
+          where: { genre_title: 'Survival' },
+        },
+      ],
+    },
   },
   {
     title: "Player's Unknown Battlegrounds",
@@ -360,6 +616,18 @@ export const games: Prisma.gameCreateInput[] = [
     score: 86,
     gameplay_url: 'https://www.youtube.com/watch?v=u1oqfdh4xBY',
     trailer_url: 'https://www.youtube.com/watch?v=nLtmEjqzg7M',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Battle Royale' },
+          where: { genre_title: 'Battle Royale' },
+        },
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
     title: "Tom Clancy's Rainbow Six Siege",
@@ -370,126 +638,238 @@ export const games: Prisma.gameCreateInput[] = [
     score: 73,
     gameplay_url: 'https://www.youtube.com/watch?v=gxl5NdbBOuA',
     trailer_url: 'https://www.youtube.com/watch?v=HKd-mk__BXA',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
-    title: "Red Dead Redemption 2",
+    title: 'Red Dead Redemption 2',
     cover_image_url: 'https://iili.io/Srxq74.jpg',
     description:
-      "Winner of over 175 Game of the Year Awards and recipient of over 250 perfect scores, RDR2 is the epic tale of outlaw Arthur Morgan and the infamous Van der Linde gang, on the run across America at the dawn of the modern age. Also includes access to the shared living world of Red Dead Online.",
+      'Winner of over 175 Game of the Year Awards and recipient of over 250 perfect scores, RDR2 is the epic tale of outlaw Arthur Morgan and the infamous Van der Linde gang, on the run across America at the dawn of the modern age. Also includes access to the shared living world of Red Dead Online.',
     year: 2018,
     score: 97,
     gameplay_url: 'https://www.youtube.com/watch?v=BoohYJlRXa8',
     trailer_url: 'https://www.youtube.com/watch?v=gmA6MrX81z4',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+      ],
+    },
   },
   {
-    title: "Resident Evil 2",
+    title: 'Resident Evil 2',
     cover_image_url: 'https://iili.io/SrxBkl.jpg',
     description:
-      "A deadly virus engulfs the residents of Raccoon City in September of 1998, plunging the city into chaos as flesh eating zombies roam the streets for survivors. An unparalleled adrenaline rush, gripping storyline, and unimaginable horrors await you. Witness the return of Resident Evil 2.",
+      'A deadly virus engulfs the residents of Raccoon City in September of 1998, plunging the city into chaos as flesh eating zombies roam the streets for survivors. An unparalleled adrenaline rush, gripping storyline, and unimaginable horrors await you. Witness the return of Resident Evil 2.',
     year: 2019,
     score: 98,
     gameplay_url: 'https://www.youtube.com/watch?v=sCL6ckm613k',
     trailer_url: 'https://www.youtube.com/watch?v=u3wS-Q2KBpk',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Survival Horror' },
+          where: { genre_title: 'Survival Horror' },
+        },
+      ],
+    },
   },
   {
-    title: "Resident Evil Village",
+    title: 'Resident Evil Village',
     cover_image_url: 'https://iili.io/SrxCp2.jpg',
     description:
-      "Experience survival horror like never before in the 8th major installment in the Resident Evil franchise - Resident Evil Village. With detailed graphics, intense first-person action and masterful storytelling, the terror has never felt more realistic.",
+      'Experience survival horror like never before in the 8th major installment in the Resident Evil franchise - Resident Evil Village. With detailed graphics, intense first-person action and masterful storytelling, the terror has never felt more realistic.',
     year: 2021,
     score: 84,
     gameplay_url: 'https://www.youtube.com/watch?v=s8h1Q87IcPo',
     trailer_url: 'https://www.youtube.com/watch?v=Qge5m24C5qs',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Survival Horror' },
+          where: { genre_title: 'Survival Horror' },
+        },
+      ],
+    },
   },
   {
-    title: "Sea of Thieves",
+    title: 'Sea of Thieves',
     cover_image_url: 'https://iili.io/SrxoIS.jpg',
     description:
-      "Sea of Thieves offers the essential pirate experience, from sailing and fighting to exploring and looting – everything you need to live the pirate life and become a legend in your own right. With no set roles, you have complete freedom to approach the world, and other players, however you choose.",
+      'Sea of Thieves offers the essential pirate experience, from sailing and fighting to exploring and looting – everything you need to live the pirate life and become a legend in your own right. With no set roles, you have complete freedom to approach the world, and other players, however you choose.',
     year: 2018,
     score: 69,
     gameplay_url: 'https://www.youtube.com/watch?v=DBGKtb7lbEk',
     trailer_url: 'https://www.youtube.com/watch?v=r5JIBaasuE8',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Action/Adventure' },
+          where: { genre_title: 'Action/Adventure' },
+        },
+        {
+          create: { genre_title: 'Multiplayer' },
+          where: { genre_title: 'Multiplayer' },
+        },
+      ],
+    },
   },
   {
-    title: "Sekiro: Shadows Die Twice",
+    title: 'Sekiro: Shadows Die Twice',
     cover_image_url: 'https://iili.io/Srxxh7.jpg',
     description:
-      "Game of the Year - The Game Awards 2019 Best Action Game of 2019 - IGN Carve your own clever path to vengeance in the award winning adventure from developer FromSoftware, creators of Bloodborne and the Dark Souls series. Take Revenge. Restore Your Honor. Kill Ingeniously.",
+      'Game of the Year - The Game Awards 2019 Best Action Game of 2019 - IGN Carve your own clever path to vengeance in the award winning adventure from developer FromSoftware, creators of Bloodborne and the Dark Souls series. Take Revenge. Restore Your Honor. Kill Ingeniously.',
     year: 2019,
     score: 90,
     gameplay_url: 'https://www.youtube.com/watch?v=XA74YQB7X-0',
     trailer_url: 'https://www.youtube.com/watch?v=rXMX4YJ7Lks',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
-    title: "Middle Earth: Shadow of War",
+    title: 'Middle Earth: Shadow of War',
     cover_image_url: 'https://iili.io/SrxzQ9.jpg',
     description:
-      "Experience an epic open-world brought to life by the award-winning Nemesis System. Forge a new Ring of Power, conquer Fortresses in massive battles and dominate Mordor with your personal orc army in Middle-earth™: Shadow of War™.",
+      'Experience an epic open-world brought to life by the award-winning Nemesis System. Forge a new Ring of Power, conquer Fortresses in massive battles and dominate Mordor with your personal orc army in Middle-earth™: Shadow of War™.',
     year: 2017,
     score: 80,
     gameplay_url: 'https://www.youtube.com/watch?v=DEob4KV4itg',
     trailer_url: 'https://www.youtube.com/watch?v=ESw4dyKPgj8',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
-    title: "The Elder Scrolls V: Skyrim",
+    title: 'The Elder Scrolls V: Skyrim',
     cover_image_url: 'https://iili.io/SrxTBe.jpg',
     description:
-      "Winner of more than 200 Game of the Year Awards, Skyrim Special Edition brings the epic fantasy to life in stunning detail.",
+      'Winner of more than 200 Game of the Year Awards, Skyrim Special Edition brings the epic fantasy to life in stunning detail.',
     year: 2011,
     score: 94,
     gameplay_url: 'https://www.youtube.com/watch?v=f4JuigM40es',
     trailer_url: 'https://www.youtube.com/watch?v=JSRtYpNRoN0',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
   {
-    title: "Street Fighter V",
+    title: 'Street Fighter V',
     cover_image_url: 'https://iili.io/SrxuEu.jpg',
     description:
-      "Experience the intensity of head-to-head battles with Street Fighter® V! Choose from 16 iconic characters, then battle against friends online or offline with a robust variety of match options.",
+      'Experience the intensity of head-to-head battles with Street Fighter® V! Choose from 16 iconic characters, then battle against friends online or offline with a robust variety of match options.',
     year: 2018,
     score: 87,
     gameplay_url: 'https://www.youtube.com/watch?v=HE0cMFHN4jo',
     trailer_url: 'https://www.youtube.com/watch?v=0nFd7Iylj5A',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Fight' },
+          where: { genre_title: 'Fight' },
+        },
+      ],
+    },
   },
   {
-    title: "Subnautica",
+    title: 'Subnautica',
     cover_image_url: 'https://iili.io/Srx52j.jpg',
     description:
-      "Descend into the depths of an alien underwater world filled with wonder and peril. Craft equipment, pilot submarines and out-smart wildlife to explore lush coral reefs, volcanoes, cave systems, and more - all while trying to survive.",
+      'Descend into the depths of an alien underwater world filled with wonder and peril. Craft equipment, pilot submarines and out-smart wildlife to explore lush coral reefs, volcanoes, cave systems, and more - all while trying to survive.',
     year: 2018,
     score: 87,
     gameplay_url: 'https://www.youtube.com/watch?v=fYLkUOeRFlY',
     trailer_url: 'https://www.youtube.com/watch?v=Rz2SNm8VguE',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Survival' },
+          where: { genre_title: 'Survival' },
+        },
+      ],
+    },
   },
   {
-    title: "Star Wars Battlefront 2",
+    title: 'Star Wars Battlefront 2',
     cover_image_url: 'https://iili.io/SrxArb.jpg',
     description:
-      "Be the hero in the ultimate STAR WARS™ battle fantasy with STAR WARS™ Battlefront™ II: Celebration Edition!",
+      'Be the hero in the ultimate STAR WARS™ battle fantasy with STAR WARS™ Battlefront™ II: Celebration Edition!',
     year: 2017,
     score: 68,
     gameplay_url: 'https://www.youtube.com/watch?v=AG2SZCNwORs',
     trailer_url: 'https://www.youtube.com/watch?v=_q51LZ2HpbE',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'FPS' },
+          where: { genre_title: 'FPS' },
+        },
+      ],
+    },
   },
   {
-    title: "The Forest",
+    title: 'The Forest',
     cover_image_url: 'https://iili.io/Srx7Yx.jpg',
     description:
-      "As the lone survivor of a passenger jet crash, you find yourself in a mysterious forest battling to stay alive against a society of cannibalistic mutants. Build, explore, survive in this terrifying first person survival horror simulator.",
+      'As the lone survivor of a passenger jet crash, you find yourself in a mysterious forest battling to stay alive against a society of cannibalistic mutants. Build, explore, survive in this terrifying first person survival horror simulator.',
     year: 2018,
     score: 83,
     gameplay_url: 'https://www.youtube.com/watch?v=UyO72UXmi80',
     trailer_url: 'https://www.youtube.com/watch?v=8KXfxHujIAA',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'Survival' },
+          where: { genre_title: 'Survival' },
+        },
+        {
+          create: { genre_title: 'Multiplayer' },
+          where: { genre_title: 'Multiplayer' },
+        },
+      ],
+    },
   },
   {
-    title: "The Witcher 3: Wild Hunt",
+    title: 'The Witcher 3: Wild Hunt',
     cover_image_url: 'https://iili.io/SrxYkQ.jpg',
     description:
-      "As war rages on throughout the Northern Realms, you take on the greatest contract of your life — tracking down the Child of Prophecy, a living weapon that can alter the shape of the world.",
+      'As war rages on throughout the Northern Realms, you take on the greatest contract of your life — tracking down the Child of Prophecy, a living weapon that can alter the shape of the world.',
     year: 2015,
     score: 93,
     gameplay_url: 'https://www.youtube.com/watch?v=yQiO6-JIG9M',
     trailer_url: 'https://www.youtube.com/watch?v=c0i88t0Kacs',
+    genres: {
+      connectOrCreate: [
+        {
+          create: { genre_title: 'RPG' },
+          where: { genre_title: 'RPG' },
+        },
+      ],
+    },
   },
 ];
 
