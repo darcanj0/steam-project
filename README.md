@@ -37,8 +37,7 @@ To run this application locally you'll need:
 
 ## Documentation
 
-- [Documentation (development)](https://steam-project-server-development.up.railway.app/api/)
-- [Documentation (production)](https://steam-project-server-production.up.railway.app/api/)
+- [Documentation (production)](https://steam-project-api.onrender.com/api)
 - [Documentation (local)](https://localhost:3001/api)
 
 ## Cloning
